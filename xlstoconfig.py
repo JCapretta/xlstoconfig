@@ -48,14 +48,10 @@ class PanoramaConfig:
         for key in children.keys():
             setattr(self,key+"_dict",{})
             self.read_attributes(children[key],key+"_dict")
-            print getattr(self,key+"_dict")
-            print type(getattr(self,key+"_dict"))
-            print "key: "+key
             if isinstance(getattr(self,key+"_dict"),dict):
                 setattr(self,key,getattr(self,key+"_dict").values())
             else:
                 setattr(self,key,getattr(self,key+"_dict"))
-                print "key '"+key+"' is  not a dict"
     def make_class_attributes(self,obj,row,columns):
         rowvals={}
         rowlistvals={}
