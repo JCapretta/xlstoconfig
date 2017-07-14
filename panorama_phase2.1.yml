@@ -1,7 +1,7 @@
 ---
 children:
     templates:
-        workbook: ../RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
+        workbook: /cygdrive/c/Users/john/My Documents/RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
         worksheet: Tables
         min_row: 3
         max_row: 3
@@ -28,8 +28,8 @@ children:
                     aggregates:
                         children:
                             units:
-                                #workbook: null
-                                worksheet: null
+                                workbook: PARENT_WORKBOOK
+                                worksheet: FW Interfaces
                                 min_row: 2
                                 max_row: 28
                                 max_col: 7
@@ -44,8 +44,8 @@ children:
                                     description: 5
                                     agg_name: 6
                     ethernet:
-                        #workbook: null
-                        worksheet: null
+                        workbook: PARENT_WORKBOOK
+                        worksheet: FW Interfaces
                         min_row: 3
                         max_row: 10
                         max_col: 20
@@ -183,7 +183,7 @@ children:
                             lists:
                                 interfaces: 0
     address_objects:
-        workbook: ../RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
+        workbook: /cygdrive/c/Users/john/My Documents/RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
         worksheet: Address Objects
         min_row: 2
         max_row: 12
