@@ -1,0 +1,200 @@
+---
+children:
+    templates:
+        workbook: ../RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
+        worksheet: Tables
+        min_row: 3
+        max_row: 3
+        max_col: 11
+        min_col: 1
+        columns: #these start at 0
+            name: 10
+
+        children:
+            zones:
+                workbook: PARENT_WORKBOOK
+                worksheet: FW Interfaces
+                min_row: 30
+                max_row: 69
+                max_col: 20
+                min_col: 0
+                columns: #these start at 0
+                    name: 14
+                    description: 0
+                    lists:
+                        interfaces: 10
+            interfaces:
+                children:
+                    aggregates:
+                        children:
+                            units:
+                                #workbook: null
+                                worksheet: null
+                                min_row: 2
+                                max_row: 28
+                                max_col: 7
+                                min_col: 0
+                                columns: #these start at 0
+                                    name: 0
+                                    unit_name: 0
+                                    ip_address: 1
+                                    cidr_mask: 2
+                                    tag: 3
+                                    zone: 4
+                                    description: 5
+                                    agg_name: 6
+                    ethernet:
+                        #workbook: null
+                        worksheet: null
+                        min_row: 3
+                        max_row: 10
+                        max_col: 20
+                        min_col: 0
+                        columns: #these start at 0
+                            name: 18
+                            ip_address: null
+                            cidr_mask: null
+                            zone: null
+                            description: null
+                            aggregate: 19
+                    loopback:
+                        workbook: PARENT_WORKBOOK
+                        worksheet: FW Interfaces
+                        min_row: 30
+                        max_row: 35
+                        max_col: 20
+                        min_col: 0
+                        columns: #these start at 0
+                            name: 10
+                            ip_address: 11
+                            cidr_mask: 12
+                            zone: null
+                            description: null
+                            aggregate: 19
+            virtual_router:
+                values:
+                    name: Default_VR
+                children:
+                    bgp:
+                        children:
+                            peer_groups:
+                                workbook: PARENT_WORKBOOK
+                                worksheet: BGP Phase 1
+                                min_row: 2
+                                max_row: 10
+                                max_col: 12
+                                min_col: 0
+                                columns: #these start at 0
+                                    name: 0
+                                    peer_group: 0
+                                    local_address: 10
+                                    peer_address: 3
+                                    peer_as: 4
+                                    enable: 9
+                                    virtual_router: 11
+                            peers:
+                                workbook: PARENT_WORKBOOK
+                                worksheet: BGP Phase 1
+                                min_row: 2
+                                max_row: 10
+                                max_col: 13
+                                min_col: 1
+                                columns: #these start at 0
+                                    name: 3
+                                    peer_group: 0
+                                    local_interface: 12
+                                    peer_address: 3
+                                    peer_as: 4
+                                    enable: 9
+                                    virtual_router: 11
+                            import_rules:
+                                workbook: PARENT_WORKBOOK
+                                worksheet: BGP Phase 1
+                                min_row: 2
+                                max_row: 10
+                                max_col: 22
+                                min_col: 1
+                                columns: #these start at 0
+                                    name: 13
+                                    action: 14
+                                    used_by: 15
+                                    enable: 16
+                                    local_pref: 17
+                                    ext_community: 18
+                                    match_address: 19
+                                    match_as_path: 20      
+                            export_rules:
+                                workbook: PARENT_WORKBOOK
+                                worksheet: BGP Phase 1
+                                min_row: 2
+                                max_row: 18
+                                max_col: 31
+                                min_col: 1
+                                columns: #these start at 0
+                                    name: 22
+                                    action: 23
+                                    used_by: 24
+                                    enable: 25
+                                    match_address: 26
+                                    match_peer: 27
+                                    as_path_prepend: 28
+                                    match_as_path: 29                                      
+                            match_addresses:
+                                workbook: PARENT_WORKBOOK
+                                worksheet: BGP Phase 1
+                                min_row: 2
+                                max_row: 18
+                                max_col: 31
+                                min_col: 1
+                                columns: #these start at 0
+                                    name: 21
+                                    export_rule: 22
+                                    used_by: 24
+                                    enable: 25
+                                    match_address: 26
+                                    match_peer: 27
+                                    as-path_prepend: 28
+                                    match_as_path: 29   
+                            match_peers:
+                                workbook: PARENT_WORKBOOK
+                                worksheet: BGP Phase 1
+                                min_row: 2
+                                max_row: 18
+                                max_col: 31
+                                min_col: 1
+                                columns: #these start at 0
+                                    name: 21
+                                    export_rule: 22
+                                    used_by: 24
+                                    enable: 25
+                                    match_address: 26
+                                    match_peer: 27
+                                    as-path_prepend: 28
+                                    match_as_path: 29                                             
+                    interfaces:
+                        workbook: PARENT_WORKBOOK
+                        worksheet: FW Interfaces
+                        min_row: 2
+                        max_row: 28
+                        max_col: 7
+                        min_col: 1                 
+                        columns:
+                            name: 0
+                            lists:
+                                interfaces: 0
+    address_objects:
+        workbook: ../RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
+        worksheet: Address Objects
+        min_row: 2
+        max_row: 12
+        max_col: 7
+        min_col: 1
+        columns: #these start at 0
+            name: 6                    
+            description: 3
+            object_name: 1
+            network_address: 2
+            phase: 5
+            device_group: 0
+...
+
