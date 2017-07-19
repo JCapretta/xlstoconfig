@@ -20,7 +20,8 @@ class PanoramaConfig:
     #read the yaml to get the pointers to a table within a spreadsheet. each row is a new child object within a dictionary attribute of a parent object
         self.wb,ws,columns = self.get_locations(yaml,self.wb)
         if ws:
-            for row in ws.iter_rows(min_col=yaml['min_col'],min_row=yaml['min_row']or ws.min_row, max_col=yaml['max_col']or ws.max_column, max_row=yaml['max_row']or ws.max_row):
+            range_string = yaml['range'] 
+            for row in ws[range_string]:
                 name = row[columns['name']].value
                 if name not in getattr(self,attr):
                     getattr(self,attr).update({name:PanoramaConfig(yaml,self.wb)})
