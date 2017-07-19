@@ -90,7 +90,7 @@ def jinjaSkeleton(parent_name,yaml):
         jinja_text=''
         for key in yaml['children'].keys():
             if 'workbook' in yaml['children'][key]:
-                jinja_text += '{% for ' + key + ' in ' + parent_name + '.' + key + '.values() %}'+ '\n' + jinjaSkeleton(key,yaml['children'][key]) + '\n{% endfor %}\n'    
+                jinja_text += '{% for ' + key + ' in ' + parent_name + '.' + key + ' %}'+ '\n' + jinjaSkeleton(key,yaml['children'][key]) + '\n{% endfor %}\n'    
             else:
                 jinja_text += '{% set ' + key + ' = ' + parent_name + '.' + key + ' %}'+ '\n' + jinjaSkeleton(key,yaml['children'][key])
         return jinja_text
@@ -104,24 +104,26 @@ def main():
     parser = argparse.ArgumentParser(description="John's config generator")
     parser.add_argument('-f', '--file',help='config workbook')
     parser.add_argument('-t', '--template')
-
+    parser.add_argument('-j', dest='create_skeleton', help='Generate a skeleton for building a jinja2 template', action='store_true')
     args = parser.parse_args()
     
     #yaml
     
     with open(args.file, 'r') as file_descriptor:
         locations = yaml.load(file_descriptor)
-    
+     
     # print the jinja skeleton. 
-    print jinjaSkeleton('config',locations)
+    if args.create_skeleton:
+        print jinjaSkeleton('config',locations)
 
     #initialize switch config
     config = PanoramaConfig(locations)
     
-    
-    env = Environment(loader=FileSystemLoader('./'))
-    template = env.get_template(args.template)
-    print template.render(config = config)
+    # render template and print
+    if args.template:
+        env = Environment(loader=FileSystemLoader('./'))
+        template = env.get_template(args.template)
+        print template.render(config = config)
     
 
 if __name__ == '__main__':
