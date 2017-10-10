@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from openpyxl import load_workbook
+from openpyxl.utils import get_column_letter, range_to_tuple, range_boundaries
 import argparse
 from jinja2 import Environment, FileSystemLoader
 import yaml
@@ -26,14 +27,21 @@ class Config:
     def read_attributes(self,yaml,attr):
     #read the yaml to get the pointers to a table within a spreadsheet. each row is a new child object within a dictionary attribute of a parent object
         wb,ws,columns = self.get_locations(yaml,self.wb)
-        autocolumns = self.auto_column(yaml,wb) 
         
-        for key in autocolumns.keys():
-            if key not in columns.keys():
-                columns[key]=autocolumns[key]
+        if ('autocolumn' in yaml and yaml['autocolumn']) or not 'columns' in yaml:
+            autocolumns = self.auto_column(yaml,wb)   
+            for key in autocolumns.keys():
+                if key not in columns.keys():
+                    columns[key]=autocolumns[key]
         if ws:
-            range_string = yaml['range'] 
-            for row in ws[range_string]:
+            range_string=self.get_range(yaml,wb)
+            rows=ws[range_string]
+            if ('autocolumn' in yaml and yaml['autocolumn']) or not 'columns' in yaml:
+                autocolumns = self.auto_column(yaml,wb)   
+                for key in autocolumns.keys():
+                    if key not in columns.keys():
+                        columns[key]=autocolumns[key]
+            for row in rows:
                 name = row[columns['name']].value
                 if name not in getattr(self,attr):
                     getattr(self,attr).update({name:Config(yaml,wb)})
@@ -84,7 +92,7 @@ class Config:
         if 'workbook' in locations:
             if not locations['workbook']=='PARENT_WORKBOOK':
                 wb = load_workbook(filename = locations['workbook'], data_only=True) #data_only=True so you the values are read from the spreadhseet. not the formulas.
-            ws = wb[locations['worksheet']]
+        ws = wb[locations['worksheet']]
         if 'columns' in locations:
             columns=locations['columns']
         return wb,ws,columns
@@ -92,7 +100,7 @@ class Config:
     def auto_column(self,yaml,wb):
         #automatically generate the 'column' dictionary
         ws = wb[yaml['worksheet']]
-        range_string = yaml['range']
+        range_string = self.get_range(yaml,wb)
         cols={}
         #get header row
         first_col = range_string.split(":")[0][0]
@@ -108,6 +116,21 @@ class Config:
         cols['name']=ord(first_col.upper())-65
         return cols
         
+    def get_range(self,yaml,wb):
+        #get the range and return a range string
+        if ('autorange' in yaml and yaml['autorange']) or not 'range' in yaml:          
+            ws=wb[yaml['worksheet']]
+            range_string = ws.calculate_dimension()
+            min_col, min_row, max_col, max_row = range_boundaries(range_string)
+            if max_row > min_row:
+                min_row+=1
+            range_string = '%s%d:%s%d' % (
+            get_column_letter(min_col), min_row,
+            get_column_letter(max_col), max_row
+        )
+        else:             
+            range_string = yaml['range'] 
+        return range_string
                  
 def jinjaSkeleton(parent_name,yaml):
     #create a skeleton for your jinja template. good to use as a starting point if you don't have a jinja template already

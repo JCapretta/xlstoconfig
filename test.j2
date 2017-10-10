@@ -11,3 +11,7 @@ Test Case,description,expected,actual
 7,inherit workbook from root,blah7,{{config.test7[0].name}}
 8,auto define columns,C3,{{(config.test8|sort(attribute='name'))[2].c}}
 9,#auto define columns. override with static column definitions,B3,{{(config.test9|sort(attribute='name'))[2].c}}
+10,default workbook is root/parent,blah10,{{(config.test10|sort(attribute='name'))[2].c}}
+11,default autocolumn if columns are not specified,blah11,{{(config.test11|sort(attribute='name'))[2].c}}
+12,autorange,blah12,{{(config.test12|sort(attribute='name'))[6].e}}
+13,autorange,blah13,{{(config.test13|sort(attribute='name'))[6].e}}

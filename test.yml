@@ -75,3 +75,15 @@ children:
         columns: #these start at 0
             name: 0
             c: 1
+    test10: #default workbook is root/parent
+        worksheet: test10
+        range: A2:E7
+        autocolumn: 1
+    test11: #default autocolumn if columns are not specified
+        worksheet: test11
+        range: A2:E7
+    test12: #autorange
+        worksheet: test12
+        autorange: yes
+    test13: #default autorange if range not specified
+        worksheet: test13
