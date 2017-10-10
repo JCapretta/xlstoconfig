@@ -1,7 +1,7 @@
 ---
 workbook: test3.xlsx
 values: #test4: values outside of children
-    test4_1: 4_1
+    test4_1: blah4
     test4_2: 123
 children:
     test1_1:
@@ -34,7 +34,7 @@ children:
         worksheet: test3
         range: A1:C3
         values:
-            test5_1: 5_1
+            test5_1: blah5
             test5_2: 456
         columns: #these start at 0
             name: 0
@@ -62,3 +62,16 @@ children:
         range: A1:A1
         columns: #these start at 0
             name: 0
+    test8: #auto define columns
+        workbook: PARENT_WORKBOOK
+        worksheet: test8
+        range: A2:E7
+        autocolumn: 1
+    test9: #auto define columns. override with static column definitions
+        workbook: PARENT_WORKBOOK
+        worksheet: test9
+        range: A2:E7
+        autocolumn: 1
+        columns: #these start at 0
+            name: 0
+            c: 1

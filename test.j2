@@ -3,9 +3,11 @@ Test Case,description,expected,actual
 1,values from two different worksheets,NBdn,{{config.test1_2[0].name}}
 2,values from a different workbook,test2,{{config.test2[0].name}}
 3,values from a different workbook,C3,{{(config.test3|sort(attribute='name'))[2].c}}
-4,values outside of children,4_1,{{config.test4_1}}
+4,values outside of children,blah4,{{config.test4_1}}
 4,values outside of children,123,{{config.test4_2}}
-5,values inside of children,5_1,{{config.test5_1}}
-5,values inside of children,456,{{config.test5_2}}
+5,values inside of children,blah5,{{config.test5[0].test5_1}}
+5,values inside of children,456,{{config.test5[0].test5_2}}
 6,inherit workbook from parent,blah6,{{config.test6[0].test6_child[0].name}}
 7,inherit workbook from root,blah7,{{config.test7[0].name}}
+8,auto define columns,C3,{{(config.test8|sort(attribute='name'))[2].c}}
+9,#auto define columns. override with static column definitions,B3,{{(config.test9|sort(attribute='name'))[2].c}}
