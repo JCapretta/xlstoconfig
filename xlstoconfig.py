@@ -26,8 +26,11 @@ class Config(object):
                 setattr(self, key, yml['values'][key])
 
     def read_attributes(self, yml, attr):
-        """read the yaml to get the pointers to a table within a spreadsheet.
-        Each row is a new child object within a dictionary attribute of a parent object"""
+        """Create attributes from Config object based on input yaml file.
+        
+        Read the yaml to get the pointers to a table within a spreadsheet.
+        Each row is a new child object within a dictionary attribute of a parent object.
+        """
         workbook, worksheet, columns = get_locations(yml, self.workbook)
         if worksheet:
             range_string = get_range(yml, workbook)
@@ -44,12 +47,12 @@ class Config(object):
             setattr(self, attr, Config(yml, workbook))
 
     def set_attributes(self, attrs):
-        """create scalar attributes of this object"""
+        """Set scalar attributes for this object."""
         for key in attrs.keys():
             setattr(self, key, attrs[key])
 
     def append_attributes(self, attrs):
-        """create or append to a list attribute of this object"""
+        """Create or append to a list attribute of this object."""
         for key in attrs.keys():
             if hasattr(self, key):
                 setattr(self, key, getattr(self, key)+[attrs[key]])
@@ -57,17 +60,18 @@ class Config(object):
                 setattr(self, key, [attrs[key]])
 
     def make_dict_attributes(self, children):
-        """create atrributes of this object that are to be dictionaries"""
+        """Create attributes of this node object that will hold child node objects"""
         for key in children.keys():
             setattr(self, key+"_dict", {})
             self.read_attributes(children[key], key+"_dict")
             if isinstance(getattr(self, key+"_dict"), dict):
+            # get values from dictionary attribute and create corresponding list attribute
                 setattr(self, key, getattr(self, key+"_dict").values())
             else:
                 setattr(self, key, getattr(self, key+"_dict"))
 
 def auto_column(yml, workbook):
-    """automatically generate the 'column' dictionary"""
+    """Return names for attributes based on table headers in xls file."""
     worksheet = workbook[yml['worksheet']]
     range_string = get_range(yml, workbook)
     cols = {}
@@ -84,7 +88,7 @@ def auto_column(yml, workbook):
     return cols
 
 def get_range(yml, workbook):
-    """get the range and return a range string"""
+    """Return cell reference for the range in the worksheet."""
     if ('autorange' in yml and yml['autorange']) or not 'range' in yml:
         worksheet = workbook[yml['worksheet']]
         range_string = worksheet.calculate_dimension()
@@ -100,7 +104,7 @@ def get_range(yml, workbook):
     return range_string
 
 def make_class_attributes(obj, row, columns):
-    """docstring"""
+    """Set attributes for a node object based on values of a table row"""
     rowvals = {}
     rowlistvals = {}
     if 'lists' in columns:
@@ -108,9 +112,9 @@ def make_class_attributes(obj, row, columns):
         obj.append_attributes(rowlistvals)
     for column in columns.keys():
         if not column == 'lists':
-            if columns[column] or columns[column] == 0:#test if 0. zero is not null
+            if columns[column] or columns[column] == 0:     #test if 0. zero is not null
                 rowvals[column] = row[int(columns[column])].value
-                obj.set_attributes(rowvals)
+    obj.set_attributes(rowvals)
 
 def get_locations(locations, workbook=None):
     """load workbook"""
@@ -149,7 +153,7 @@ def get_args():
     return parsed_args
 
 class Runner(object):
-    """this class could just be put into main()"""
+    """this class could just be put into main()?"""
     def __init__(self):
         """init for runner Class"""
         self.p_args = get_args()
@@ -162,7 +166,7 @@ class Runner(object):
             print self.render_template()
 
     def load_yaml(self):
-        """load yaml file into memory"""
+        """Load yaml file."""
         if self.p_args.file:
             with open(self.p_args.file, 'r') as file_descriptor:
                 self.locations = yaml.load(file_descriptor)
