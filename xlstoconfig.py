@@ -75,16 +75,19 @@ def auto_column(yml, workbook):
     worksheet = workbook[yml['worksheet']]
     range_string = get_range(yml, workbook)
     cols = {}
-    first_col = range_string.split(":")[0][0]
-    last_col = range_string.split(":")[1][0]
-    top_row = int(range_string.split(":")[0][1])
+    first_col = range_string.split(":")[0]
+    first_col = filter(lambda x: x.isalpha(), first_col)
+    last_col = range_string.split(":")[1]
+    last_col = filter(lambda x: x.isalpha(), last_col)
+    top_row = range_string.split(":")[0]
+    top_row = int(filter(lambda x: x.isdigit(), top_row))
     #if top row of range is already at the top don't decrement. otherwise decrement.
     top_row = 1 if top_row == 1 else top_row-1
     header_range = first_col+str(top_row)+':'+last_col+str(top_row)
     header = worksheet[header_range]
     for i in range(len(header[0])):
         cols[header[0][i].value] = i
-    cols['name'] = ord(first_col.upper())-65
+    cols['name'] = 0
     return cols
 
 def get_range(yml, workbook):

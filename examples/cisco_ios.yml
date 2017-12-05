@@ -5,13 +5,8 @@ values:
 children:
     interfaces:    
         worksheet: VLANs
-        range: A36:F91
-        columns: #these start at 0
-            name: 1
-            mode: 2
-            vlans: 3
-            device: 4
-            device_port: 5
+        range: B36:F91
+        autocolumn: 1
     vlans:
         worksheet: VLANs
         range: A2:D28

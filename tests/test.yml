@@ -87,3 +87,6 @@ children:
         autorange: yes
     test13: #default autorange if range not specified
         worksheet: test13
+    test14: #autocolumn when first row of range > 9
+        worksheet: test14
+        range: D69:H75

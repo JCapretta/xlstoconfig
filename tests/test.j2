@@ -15,3 +15,4 @@ Test Case,description,expected,actual
 11,default autocolumn if columns are not specified,blah11,{{(config.test11|sort(attribute='name'))[2].c}}
 12,autorange,blah12,{{(config.test12|sort(attribute='name'))[6].e}}
 13,autorange,blah13,{{(config.test13|sort(attribute='name'))[6].e}}
+14,autocolumn when first row index > 9,blah14,{{(config.test14|sort(attribute='name'))[5].d}}
