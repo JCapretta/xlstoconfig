@@ -49,11 +49,15 @@ The data object that you pass to Jinja2 is referenced in your template. The Jinj
 Let's walk through the cisco_ios example that can be found in the *examples* directory.
 
 **cisco_ios.xlsx**
-The is a holding data about vlans and switchport parameters. We want to generate some Cisco IOS configuration based on this data.
+
+The is a spreadsheet holding data about vlans and switchport parameters. We want to generate some Cisco IOS configuration based on this data.
 In general, there isn't any need to structure the workbook to cater for the script.
 
 **cisco_ios.yml**
-This mapping defines the path to the Excel workbook. It is possible to reference multiple workbooks:
+
+This is a configuration file that tells xlstoconfig how to read the data in cisco_ios.xlsx and how to present this to Jinja2. The rest of this section describes how the cisco_ios.yml file works.
+
+Below is shown a mapping that defines the path to the Excel workbook. It is possible to reference multiple workbooks:
 
     workbook: examples/cisco_ios.xlsx
 
