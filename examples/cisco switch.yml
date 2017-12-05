@@ -1,0 +1,29 @@
+---
+values:
+    hostname: RACVME1EXTSW01
+children:
+    interfaces:
+        workbook: ../RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
+        worksheet: VLANs
+        min_row: 36
+        max_row: 91
+        max_col: 11
+        min_col: 1
+        columns: #these start at 0
+            name: 1
+            mode: 2
+            vlans: 3
+            device: 4
+            device_port: 5
+    vlans:
+        workbook: ../RACV/Perimeter DC migration/DC Perimeter Migration v3.xlsx
+        worksheet: VLANs
+        min_row: 2
+        max_row: 28
+        max_col: 11
+        min_col: 1
+        columns: #these start at 0
+            name: 1
+            id: 0
+...
+

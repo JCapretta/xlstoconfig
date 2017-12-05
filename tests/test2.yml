@@ -1,0 +1,81 @@
+---
+values: #test4: values outside of children
+    test4_1: blah4
+    test4_2: 123
+children:
+    test1_1:
+        workbook: test.xlsx
+        worksheet: test1_1
+        range: A1:A1
+        columns: #these start at 0
+            name: 0
+    test1_2:
+        workbook: test.xlsx
+        worksheet: test1_2
+        range: A1:A1
+        columns: #these start at 0
+            name: 0
+    test2:
+        workbook: test2.xlsx
+        worksheet: test2
+        range: A1:A1
+        columns: #these start at 0
+            name: 0
+    test3: #range from A1:A1
+        workbook: test.xlsx
+        worksheet: test3
+        range: A1:C3
+        columns: #these start at 0
+            name: 0
+            c: 2
+    test5: #values within children
+        workbook: test.xlsx
+        worksheet: test3
+        range: A1:C3
+        values:
+            test5_1: blah5
+            test5_2: 456
+        columns: #these start at 0
+            name: 0
+            c: 2
+    test6: #   inherit workbook from parent 
+        workbook: test.xlsx
+        worksheet: test3
+        range: A1:C3
+        values:
+            test5_1: 5_1
+            test5_2: 456
+        columns: #these start at 0
+            name: 0
+            c: 2
+        children:
+            test6_child:
+                workbook: PARENT_WORKBOOK
+                worksheet: test6
+                range: A1:A1
+                columns: #these start at 0
+                    name: 0
+    test7: #inherit workbook from root
+        workbook: test3.xlsx
+        worksheet: test7
+        range: A1:A1
+        columns: #these start at 0
+            name: 0
+    test8: #auto define columns
+        workbook: test3.xlsx
+        worksheet: test8
+        range: A2:E7
+        autocolumn: 1
+    test9: #auto define columns. override with static column definitions
+        workbook: test3.xlsx
+        worksheet: test9
+        range: A2:E7
+        autocolumn: 1
+        columns: #these start at 0
+            name: 0
+            c: 1
+    test10: #default workbook is root/parent
+        workbook: test3.xlsx
+        worksheet: test10
+        range: A2:E7
+        autocolumn: 1

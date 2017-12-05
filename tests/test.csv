@@ -1,0 +1,14 @@
+Test Case,description,expected,actual
+1,values from two different worksheets,rsY0,rsY0
+1,values from two different worksheets,NBdn,NBdn
+2,values from a different workbook,test2,test2
+3,values from a different workbook,C3,C3
+4,values outside of children,blah4,blah4
+4,values outside of children,123,123
+5,values inside of children,blah5,blah5
+5,values inside of children,456,456
+6,inherit workbook from parent,blah6,blah6
+7,inherit workbook from root,blah7,blah7
+8,auto define columns,C3,C3
+9,#auto define columns. override with static column definitions,B3,B3
+10,default workbook is root/parent,blah10,blah10
