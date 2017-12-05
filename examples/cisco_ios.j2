@@ -2,22 +2,22 @@ conf t
 #hostname config
 hostname {{ config['hostname'] }}
 #vlan config
-{% if config.vlans.values() %}
-{% for vlan in config.vlans.values() %}
+{% for vlan in config.vlans %}
 vlan {{ vlan.id }}
     name "{{ vlan.name }}"
 {% endfor %}
-{% endif %}
 
 
 #interface config
-{% for interface in config['interfaces'].values()%}
+{% for interface in config['interfaces']%}
 interface {{ interface.name }}
-    description {{interface.device}}_{{interface.device_port}}
+    description "{{interface.device}}_{{interface.device_port}}"
     switchport mode {{ interface.mode|lower }}
-{% if interface.mode == "Access" %}	switchport access vlan {{ interface.vlans[0] }}
+{%- if interface.mode == "Access" %}
+    switchport access vlan {{ interface.vlans }}
 {% endif %}
-{% if interface.mode == "Trunk" %}	switchport trunk allowed vlan {{ interface.vlans }}
+{%- if interface.mode == "Trunk" %}
+    switchport trunk allowed vlan {{ interface.vlans }}
 {% endif %}
 {% endfor %}
 
