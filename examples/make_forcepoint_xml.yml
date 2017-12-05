@@ -1,0 +1,12 @@
+---
+values:
+    group_name: grp_int-192.168.0.0-16
+children:
+    nets:
+        workbook: examples/make_forcepoint_xml.xlsx
+        worksheet: grp_int-192.168.0.0-16
+        autorange: true
+        columns: #these start at 0
+            name: 0
+            net: 0
+...

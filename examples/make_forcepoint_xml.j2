@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<!DOCTYPE generic_import_export SYSTEM 'generic_import_export_v6.2.dtd'>
+<generic_import_export>
+  <group name='{{config.group_name}}' is_monitored='false'>
+  {% for net in config.nets -%}
+    <ne_list ref='noc_{{net.net|replace("/","-")}}'/>
+  {%endfor-%}
+  </group>
+    {% for net in config.nets -%}
+
+  <network name='noc_{{net.net|replace("/","-")}}' broadcast='false' ipv4_network='{{net.net}}'/>
+  {%endfor-%}
+
+  </generic_import_export>

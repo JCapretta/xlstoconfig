@@ -1,21 +1,17 @@
 ---
 workbook: examples/cisco_ios.xlsx
 values:
-    hostname: RACVME1EXTSW01
+    hostname: ACMEME1EXTSW01
 children:
+    vlans:
+        worksheet: VLANs
+        range: A2:D28
+        columns: #these start at 0
+            name: 1
+            id: 0
     interfaces:    
         worksheet: VLANs
         range: B36:F91
         autocolumn: 1
-    vlans:
-        worksheet: VLANs
-        range: A2:D28
-        min_row: 2
-        max_row: 28
-        max_col: 11
-        min_col: 1
-        columns: #these start at 0
-            name: 1
-            id: 0
 ...
 

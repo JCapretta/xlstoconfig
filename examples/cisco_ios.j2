@@ -10,7 +10,7 @@ vlan {{ vlan.id }}
 
 #interface config
 {% for interface in config['interfaces']%}
-interface {{ interface.name }}
+interface {{ interface.interface }}
     description "{{interface.device}}_{{interface.device_port}}"
     switchport mode {{ interface.mode|lower }}
 {%- if interface.mode == "Access" %}
