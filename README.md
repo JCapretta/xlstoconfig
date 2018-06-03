@@ -11,7 +11,7 @@ xlstoconfig takes data from an excel file and presents it for use with a Jinja2 
  - Jinja2 template
  - Excel file: this holds data the you want to use in your Jinja2 template
 
-xlstoconfig reads each sheet within a xls workbook and passes the data to jinja2 as a list of dictionaries. The name of the list is taken from the name of the workseet. Each row from the worksheet is a dictionary within the list. The top row of the worksheet defines the keys of the dictionaries. T
+xlstoconfig reads each sheet within a xls workbook and passes the data to jinja2 as a list of dictionaries. The name of the list is taken from the name of the workseet. Each row from the worksheet is a dictionary within the list. The top row of the worksheet defines the keys of the dictionaries. 
 
 Example use cases:
 
