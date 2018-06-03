@@ -14,6 +14,7 @@ from jinja2 import contextfilter
 import inspect
 import custom_tests
 import custom_filters
+import warnings
 
 
 class MyParser(argparse.ArgumentParser):
@@ -66,9 +67,17 @@ def listify(f):
         return list(f(*args, **kwargs))
     return listify_template
 
+
+def my_finalize(x):
+    if not x:
+        warnings.warn('Warning: Empty variable detected!')
+    if x=='':
+        warnings.warn('Warning: Empty string detected. Possible undefined variable ')
+    return x
+
 def render_template(template, config):
     """Render the jinja2 template"""
-    env = Environment(loader=FileSystemLoader('./'), trim_blocks=True, lstrip_blocks=True)
+    env = Environment(loader=FileSystemLoader('./'), trim_blocks=True, lstrip_blocks=True, finalize=my_finalize)
     FILTERS_TO_LISTIFY = [
                         "map",
                         "select",
