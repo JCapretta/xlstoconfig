@@ -1,25 +1,10 @@
 conf t
-#hostname config
-hostname {{ config['hostname'] }}
-#vlan config
-{% for vlan in config.vlans %}
-vlan {{ vlan.id }}
-    name "{{ vlan.name }}"
-{% endfor %}
-
-
 #interface config
-{% for interface in config['interfaces']%}
+{% for interface in interfaces %}
 interface {{ interface.interface }}
-    description "{{interface.device}}_{{interface.device_port}}"
-    switchport mode {{ interface.mode|lower }}
-{%- if interface.mode == "Access" %}
-    switchport access vlan {{ interface.vlans }}
-{% endif %}
-{%- if interface.mode == "Trunk" %}
-    switchport trunk allowed vlan {{ interface.vlans }}
-{% endif %}
+    description "{{interface.description}}"
+    encapsulation dot1q {{interface.tag}}
+    ip address {{interface.ip_address}} {{interface.cidr_mask|cidr_to_netmask}}
 {% endfor %}
-
 
 
