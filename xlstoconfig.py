@@ -6,7 +6,6 @@ Module docstring
 
 import argparse
 import sys
-import yaml
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter, range_boundaries
 from jinja2 import Environment, FileSystemLoader
@@ -99,7 +98,7 @@ def render_template(template, config):
 
 
 def main():
-    """Main fnction"""
+    """Main function"""
     args = get_args()
     config = read_xls_dict(args.file)
 
